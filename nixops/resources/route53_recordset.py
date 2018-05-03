@@ -144,6 +144,8 @@ class Route53RecordSetState(nixops.resources.ResourceState):
             raise Exception("Cannot change set identifier for a record from '{}' to '{}'.".format(self.set_identifier, defn.set_identifier))
         if not zone_name.endswith('.'):
             zone_name += '.'
+        if not defn.domain_name.endswith('.'):
+            defn.domain_name.endswith += '.'
         # zone name should be suffix of the dns name, if the zone name is set.
         if not defn.domain_name.endswith(zone_name):
             raise Exception("The domain name '{0}' does not end in the zone name '{1}'. You have to specify the FQDN for the zone name.".format(defn.domain_name, zone_name))
